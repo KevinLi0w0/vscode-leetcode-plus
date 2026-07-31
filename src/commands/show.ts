@@ -30,6 +30,7 @@ import { leetCodeSolutionProvider } from "../webview/leetCodeSolutionProvider";
 import * as list from "./list";
 import { getLeetCodeEndpoint } from "./plugin";
 import { globalState } from "../globalState";
+import { t } from "../i18n";
 
 export async function previewProblem(input: IProblem | vscode.Uri, isSideMode: boolean = false): Promise<void> {
     let node: IProblem;
@@ -133,7 +134,7 @@ async function fetchProblemLanguage(): Promise<string | undefined> {
     const language: string | undefined =
         defaultLanguage ||
         (await vscode.window.showQuickPick(languages, {
-            placeHolder: "Select the language you want to use",
+            placeHolder: t("select_language"),
             ignoreFocusOut: true,
         }));
     // fire-and-forget default language query
