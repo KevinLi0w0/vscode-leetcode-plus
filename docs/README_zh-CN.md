@@ -15,7 +15,7 @@
   <a href="https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode">
     <img src="https://img.shields.io/visual-studio-marketplace/d/LeetCode.vscode-leetcode.svg?style=flat-square" alt="">
   </a>
-  <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/LICENSE">
+  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/LeetCode-OpenSource/vscode-leetcode.svg?style=flat-square" alt="">
   </a>
 </p>
@@ -154,9 +154,9 @@
 
 ## 更新日志
 
-请参考[更新日志](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/CHANGELOG.md)
+请参考[更新日志](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/CHANGELOG.md)
 
 ## 鸣谢
 
 - 本插件基于[@skygragon](https://github.com/skygragon)的[leetcode-cli](https://github.com/skygragon/leetcode-cli)开源项目制作。
-- 特别鸣谢这些[贡献者们](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/ACKNOWLEDGEMENTS.md)。
+- 特别鸣谢这些[贡献者们](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/ACKNOWLEDGEMENTS.md)。

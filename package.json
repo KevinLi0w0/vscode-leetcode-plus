@@ -14,7 +14,7 @@
         "type": "git",
         "url": "https://github.com/KevinLi0w0/vscode-leetcode-plus"
     },
-    "homepage": "https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/README.md",
+    "homepage": "https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/README.md",
     "categories": [
         "Other",
         "Snippets"

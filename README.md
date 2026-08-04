@@ -6,7 +6,7 @@
   <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/resources/LeetCode.png" alt="">
 </p>
 <p align="center">
-  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/LICENSE">
+  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/KevinLi0w0/vscode-leetcode-plus.svg?style=flat-square" alt="">
   </a>
   <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/releases">
@@ -14,7 +14,7 @@
   </a>
 </p>
 
-**English** | [中文文档](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/docs/README_zh-CN.md)
+**English** | [中文文档](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/docs/README_zh-CN.md)
 
 > This is a community fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode), actively maintained with new features.
 
@@ -179,10 +179,10 @@ If your problem still cannot be addressed, feel free to [file an issue](https://
 
 ## Release Notes
 
-Refer to [CHANGELOG](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/CHANGELOG.md)
+Refer to [CHANGELOG](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/CHANGELOG.md)
 
 ## Acknowledgement
 
 - This extension is based on [@skygragon](https://github.com/skygragon)'s [leetcode-cli](https://github.com/skygragon/leetcode-cli) open source project.
 - This is a fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) with additional features.
-- Special thanks to our [contributors](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/ACKNOWLEDGEMENTS.md).
+- Special thanks to our [contributors](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/ACKNOWLEDGEMENTS.md).
