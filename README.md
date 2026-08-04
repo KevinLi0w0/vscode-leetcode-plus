@@ -1,26 +1,49 @@
-# LeetCode
+# LeetCode Plus
 
-> Solve LeetCode problems in VS Code
+> Solve LeetCode problems in VS Code — with i18n (Chinese/English) and Study Plan support
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/resources/LeetCode.png" alt="">
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/resources/LeetCode.png" alt="">
 </p>
 <p align="center">
-  <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/actions?query=workflow%3ACI+branch%3Amaster">
-    <img src="https://img.shields.io/github/workflow/status/LeetCode-OpenSource/vscode-leetcode/CI/master?style=flat-square" alt="">
+  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/KevinLi0w0/vscode-leetcode-plus.svg?style=flat-square" alt="">
   </a>
-  <a href="https://gitter.im/vscode-leetcode/Lobby">
-    <img src="https://img.shields.io/gitter/room/LeetCode-OpenSource/vscode-leetcode.svg?style=flat-square" alt="">
-  </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode">
-    <img src="https://img.shields.io/visual-studio-marketplace/d/LeetCode.vscode-leetcode.svg?style=flat-square" alt="">
-  </a>
-  <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/LeetCode-OpenSource/vscode-leetcode.svg?style=flat-square" alt="">
+  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/releases">
+    <img src="https://img.shields.io/github/v/release/KevinLi0w0/vscode-leetcode-plus?style=flat-square" alt="">
   </a>
 </p>
 
-- English Document | [中文文档](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/docs/README_zh-CN.md)
+**English** | [中文文档](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/docs/README_zh-CN.md)
+
+> This is a community fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode), actively maintained with new features.
+
+## What's New in Plus
+
+### 1. i18n — Chinese/English UI Switching
+
+The original extension is English-only. LeetCode Plus adds full bilingual support:
+
+- **Auto-detect**: follows your VS Code display language
+- **Manual toggle**: `Cmd+Shift+P` → `LeetCode: Switch UI Language`
+- or set `"leetcode.language": "zh-CN"` in settings
+
+### 2. Study Plan Integration (leetcode.cn)
+
+No more digging through hundreds of problems. Browse curated study plans directly in the explorer:
+
+- **Hot 100** — 100 most-liked problems
+- **SQL 50** — 50 high-frequency SQL problems
+- **Custom plans** — add any plan slug via `"leetcode.studyPlans": ["your-plan-slug"]`
+
+### 3. Split Editor Layout
+
+Preview on the left, code on the right — no more tab switching:
+
+```json
+"leetcode.enableSideMode": true,
+"leetcode.editor.previewOnLeft": true
+```
 
 ## ❗️ Attention ❗️- Workaround to login to LeetCode endpoint
 
@@ -40,14 +63,14 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 
 ## Quick Start
 
-![demo](https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/gifs/demo.gif)
+![demo](https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/gifs/demo.gif)
 
 ## Features
 
 ### Sign In/Out
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/sign_in.png" alt="Sign in" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/sign_in.png" alt="Sign in" />
 </p>
 
 - Simply click `Sign in to LeetCode` in the `LeetCode Explorer` will let you **sign in** with your LeetCode account.
@@ -61,10 +84,10 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ### Switch Endpoint
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/endpoint.png" alt="Switch Endpoint" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/endpoint.png" alt="Switch Endpoint" />
 </p>
 
-- By clicking the button ![btn_endpoint](https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/btn_endpoint.png) at the **explorer's navigation bar**, you can switch between different endpoints.
+- By clicking the button ![btn_endpoint](https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/btn_endpoint.png) at the **explorer's navigation bar**, you can switch between different endpoints.
 
 - The supported endpoints are:
 
@@ -78,7 +101,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ### Pick a Problem
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/pick_problem.png" alt="Pick a Problem" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/pick_problem.png" alt="Pick a Problem" />
 </p>
 
 - Directly click on the problem or right click the problem in the `LeetCode Explorer` and select `Preview Problem` to see the problem description.
@@ -95,7 +118,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ### Editor Shortcuts
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/shortcuts.png" alt="Editor Shortcuts" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/shortcuts.png" alt="Editor Shortcuts" />
 </p>
 
 - The extension supports 5 editor shortcuts (aka Code Lens):
@@ -113,17 +136,17 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ### Search problems by Keywords
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/search.png" alt="Search problems by Keywords" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/search.png" alt="Search problems by Keywords" />
 </p>
 
-- By clicking the button ![btn_search](https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/btn_search.png) at the **explorer's navigation bar**, you can search the problems by keywords.
+- By clicking the button ![btn_search](https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/btn_search.png) at the **explorer's navigation bar**, you can search the problems by keywords.
 
 ---
 
 ### Manage Session
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/session.png" alt="Manage Session" />
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/docs/imgs/session.png" alt="Manage Session" />
 </p>
 
 - To manage your LeetCode sessions, just clicking the `LeetCode: ***` at the bottom of the status bar. You can **switch** between sessions or **create**, **delete** a session.
@@ -150,15 +173,16 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 
 ## Want Help?
 
-When you meet any problem, you can check out the [Troubleshooting](https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/Troubleshooting) and [FAQ](https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/FAQ) first.
+When you meet any problem, you can check out the [Troubleshooting](https://github.com/KevinLi0w0/vscode-leetcode-plus/wiki/Troubleshooting) and [FAQ](https://github.com/KevinLi0w0/vscode-leetcode-plus/wiki/FAQ) first.
 
-If your problem still cannot be addressed, feel free to reach us in the [Gitter Channel](https://gitter.im/vscode-leetcode/Lobby) or [file an issue](https://github.com/LeetCode-OpenSource/vscode-leetcode/issues/new/choose).
+If your problem still cannot be addressed, feel free to [file an issue](https://github.com/KevinLi0w0/vscode-leetcode-plus/issues/new).
 
 ## Release Notes
 
-Refer to [CHANGELOG](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/CHANGELOG.md)
+Refer to [CHANGELOG](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/CHANGELOG.md)
 
 ## Acknowledgement
 
 - This extension is based on [@skygragon](https://github.com/skygragon)'s [leetcode-cli](https://github.com/skygragon/leetcode-cli) open source project.
-- Special thanks to our [contributors](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/ACKNOWLEDGEMENTS.md).
+- This is a fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) with additional features.
+- Special thanks to our [contributors](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/master/ACKNOWLEDGEMENTS.md).
