@@ -1,26 +1,58 @@
-# LeetCode
+# LeetCode Plus
 
-> 在 VS Code 中练习 LeetCode
+> 在 VS Code 中练习 LeetCode — 支持中英文切换与学习计划
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/resources/LeetCode.png" alt="">
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/main/resources/LeetCode.png" alt="">
 </p>
 <p align="center">
-  <a href="https://github.com/LeetCode-OpenSource/vscode-leetcode/actions?query=workflow%3ACI+branch%3Amaster">
-    <img src="https://img.shields.io/github/workflow/status/LeetCode-OpenSource/vscode-leetcode/CI/master?style=flat-square" alt="">
-  </a>
-  <a href="https://gitter.im/vscode-leetcode/Lobby">
-    <img src="https://img.shields.io/gitter/room/LeetCode-OpenSource/vscode-leetcode.svg?style=flat-square" alt="">
-  </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=LeetCode.vscode-leetcode">
-    <img src="https://img.shields.io/visual-studio-marketplace/d/LeetCode.vscode-leetcode.svg?style=flat-square" alt="">
-  </a>
   <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/LeetCode-OpenSource/vscode-leetcode.svg?style=flat-square" alt="">
+    <img src="https://img.shields.io/github/license/KevinLi0w0/vscode-leetcode-plus.svg?style=flat-square" alt="">
+  </a>
+  <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/releases">
+    <img src="https://img.shields.io/github/v/release/KevinLi0w0/vscode-leetcode-plus?style=flat-square" alt="">
   </a>
 </p>
 
-- [English Document](https://github.com/LeetCode-OpenSource/vscode-leetcode#requirements) | 中文文档
+[English](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/README.md) | **中文文档**
+
+## 关于本项目
+
+本项目是 [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode)（由 [LeetCode](https://github.com/LeetCode-OpenSource) 开发）的社区维护分支。
+
+原仓库已超过 2 年未维护（最后活跃于 2023 年），大量 Issue 和 PR 无人处理。本分支在原项目基础上继续开发，旨在交付社区期待已久的功能：
+
+- **中文语言支持** — 原插件仅支持英文，对中文用户不友好
+- **学习计划集成** — 直接在侧边栏浏览并刷 leetcode.cn 上的精选学习计划（热题 100、高频 SQL 50）
+- **更好的编辑器布局** — 题目预览在左，代码在右，无需来回切换标签页
+- **Bug 修复** — 修复了原插件中注册按钮无论站点设置如何都会打开 leetcode.cn 的问题
+
+## Plus 新增功能
+
+### 1. 中英文界面切换
+
+原插件仅支持英文，LeetCode Plus 新增了完整的中英文双语支持：
+
+- **自动检测**：跟随 VS Code 显示语言
+- **手动切换**：`Cmd+Shift+P` → `LeetCode: Switch UI Language`
+- 或在设置中配置 `"leetcode.language": "zh-CN"`
+
+### 2. 学习计划集成（leetcode.cn）
+
+无需再从几百道题中手动翻找，直接在侧边栏浏览精选学习计划：
+
+- **热题 100** — 100 道最高赞题目
+- **高频 SQL 50** — 50 道高频 SQL 题目
+- **自定义计划** — 通过 `"leetcode.studyPlans": ["your-plan-slug"]` 添加任意学习计划
+
+### 3. 分屏编辑器布局
+
+题目预览在左，代码编辑在右，不再来回切换标签页：
+
+```json
+"leetcode.enableSideMode": true,
+"leetcode.editor.previewOnLeft": true
+```
 
 ## ❗️ 注意 ❗️- 无法登录 LeetCode 节点的临时解决办法
 
@@ -148,15 +180,37 @@
 
 ## 需要帮助？
 
-在遇到任何问题时，可以先查看一下[疑难解答](https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/%E7%96%91%E9%9A%BE%E8%A7%A3%E7%AD%94)以及[常见问题](https://github.com/LeetCode-OpenSource/vscode-leetcode/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)寻求帮助。
-
-如果您的问题依然没有解决，可以在 [Gitter Channel](https://gitter.im/vscode-leetcode/Lobby) 联系我们，或者您也可以[记录一个新的 issue](https://github.com/LeetCode-OpenSource/vscode-leetcode/issues/new/choose)。
+在遇到任何问题时，欢迎[提交 Issue](https://github.com/KevinLi0w0/vscode-leetcode-plus/issues/new) 寻求帮助。
 
 ## 更新日志
 
 请参考[更新日志](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/CHANGELOG.md)
 
+## Plus 改动日志
+
+### v0.19.0
+
+基于 vscode-leetcode v0.18.4，做了以下改动：
+
+**新功能：**
+- 新增 i18n 国际化基础设施，支持中文（zh-CN）和英文（en）字符串表
+- 新增 `leetcode.language` 设置（`auto` / `en` / `zh-CN`），自动检测 VS Code 显示语言
+- 新增 `LeetCode: Switch UI Language` 命令，运行时快速切换语言
+- 本地化所有主要 UI 字符串：侧边栏分类名、对话框按钮、进度提示、错误消息、登录提示等
+- 在 LeetCode 侧边栏中新增"学习计划"分类（仅 leetcode.cn 站点）
+  - 内置计划：热题 100（`top-100-liked`）和高频 SQL 50（`sql-free-50`）
+  - 从学习计划页面获取题目 ID，网络失败时使用硬编码列表兜底
+  - 新增 `leetcode.studyPlans` 设置，支持自定义学习计划 slug
+- 新增 `leetcode.editor.previewOnLeft` 设置，题目预览在左、代码在右（默认：`true`）
+
+**Bug 修复：**
+- 修复已有 Bug：`promptForSignIn()` 无论站点设置如何，注册按钮总是打开 leetcode.cn
+- 重构"隐藏已解决"过滤逻辑，从缓存层移到显示层 — 学习计划始终显示全部题目
+- `DialogOptions` 改用 getter，语言切换后对话框按钮文字即时生效，无需重新加载窗口
+- 学习计划端点检查移入 try/catch，切换站点时不再抛出未捕获异常
+
 ## 鸣谢
 
 - 本插件基于[@skygragon](https://github.com/skygragon)的[leetcode-cli](https://github.com/skygragon/leetcode-cli)开源项目制作。
+- 本项目是 [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode)（由 LeetCode 开发）的社区维护分支，在原项目基础上 continued with new features。
 - 特别鸣谢这些[贡献者们](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/ACKNOWLEDGEMENTS.md)。

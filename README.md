@@ -3,7 +3,7 @@
 > Solve LeetCode problems in VS Code — with i18n (Chinese/English) and Study Plan support
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/master/resources/LeetCode.png" alt="">
+  <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/main/resources/LeetCode.png" alt="">
 </p>
 <p align="center">
   <a href="https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/LICENSE">
@@ -16,7 +16,16 @@
 
 **English** | [中文文档](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/docs/README_zh-CN.md)
 
-> This is a community fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode), actively maintained with new features.
+## About This Project
+
+This project is a community-maintained fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) by [LeetCode](https://github.com/LeetCode-OpenSource).
+
+The original repository has been unmaintained for over 2 years (last active in 2023), with many open issues and PRs left unaddressed. This fork was created to continue development and deliver features that the community has been requesting:
+
+- **Chinese language support** — the original extension is English-only, making it difficult for Chinese-speaking users
+- **Study plan integration** — directly browse and solve curated problem lists (Hot 100, SQL 50) from leetcode.cn
+- **Better editor layout** — split view with preview on left, code on right
+- **Bug fixes** — including a pre-existing bug where Sign Up always opened leetcode.cn regardless of endpoint
 
 ## What's New in Plus
 
@@ -181,8 +190,31 @@ If your problem still cannot be addressed, feel free to [file an issue](https://
 
 Refer to [CHANGELOG](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/CHANGELOG.md)
 
+## Changelog (Plus)
+
+### v0.19.0
+
+Based on vscode-leetcode v0.18.4. The following changes were made:
+
+**Features:**
+- Added i18n infrastructure with Chinese (zh-CN) and English (en) string tables
+- Added `leetcode.language` setting (`auto` / `en` / `zh-CN`) with auto-detection from VS Code display language
+- Added `LeetCode: Switch UI Language` command for quick language toggle at runtime
+- Localized all major UI strings: explorer categories, dialog buttons, progress messages, error messages, sign-in prompts
+- Added Study Plan category in LeetCode Explorer (leetcode.cn endpoint only)
+  - Built-in plans: Hot 100 (`top-100-liked`) and SQL 50 (`sql-free-50`)
+  - Fetches problem IDs from study plan pages with hardcoded fallback lists
+  - Added `leetcode.studyPlans` setting for custom study plan slugs
+- Added `leetcode.editor.previewOnLeft` setting to place preview on left, code on right (default: `true`)
+
+**Bug Fixes:**
+- Fixed pre-existing bug: `promptForSignIn()` always opened `leetcode.cn` for Sign Up regardless of endpoint
+- Refactored hide-solved filter from cache layer to display layer — study plan now shows all problems regardless of hide-solved setting
+- `DialogOptions` now use getters so language changes take effect at call time without window reload
+- Study plan endpoint check moved inside try/catch for graceful degradation when switching endpoints
+
 ## Acknowledgement
 
 - This extension is based on [@skygragon](https://github.com/skygragon)'s [leetcode-cli](https://github.com/skygragon/leetcode-cli) open source project.
-- This is a fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) with additional features.
+- This is a community fork of [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode) by LeetCode, continued with new features.
 - Special thanks to our [contributors](https://github.com/KevinLi0w0/vscode-leetcode-plus/blob/main/ACKNOWLEDGEMENTS.md).
