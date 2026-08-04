@@ -689,6 +689,12 @@
                         "scope": "application",
                         "description": "Determine whether to group all webview pages into the second editor column when solving problems."
                     },
+                    "leetcode.editor.previewOnLeft": {
+                        "type": "boolean",
+                        "default": true,
+                        "scope": "application",
+                        "description": "When side mode is enabled, place the problem preview on the left and the code editor on the right. Set to false for the original layout (code left, preview right)."
+                    },
                     "leetcode.nodePath": {
                         "type": "string",
                         "default": "node",
