@@ -115,18 +115,26 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
     private formatProblemLabel(element: LeetCodeNode): string {
         let label: string = `[${element.id}] ${element.name}` + this.parsePremiumUnLockIconPath(element);
 
+        // Difficulty emoji: green/easy, yellow/medium, red/hard — colored, but name stays white
+        const diffEmoji: string = this.getDifficultyEmoji(element.difficulty);
+        label += ` ${diffEmoji}`;
+
         // Append review count if > 0
         const reviewCount: number = reviewManager.getReviewCount(element.id);
         if (reviewCount > 0) {
             label += t("review_count_suffix", String(reviewCount));
         }
 
-        // Mastered problems get a checkmark prefix
-        if (reviewManager.isMastered(element.id)) {
-            return `✓ ${label}`;
-        }
-
         return label;
+    }
+
+    private getDifficultyEmoji(difficulty: string): string {
+        switch (difficulty.toLowerCase()) {
+            case "easy": return "\u{1F7E2}";   // 🟢
+            case "medium": return "\u{1F7E1}";  // 🟡
+            case "hard": return "\u{1F534}";    // 🔴
+            default: return "";
+        }
     }
 
     private parseIconPathFromProblemState(element: LeetCodeNode): string {
