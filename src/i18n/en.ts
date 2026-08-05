@@ -165,4 +165,16 @@ export const en = {
     hint_shortcut: "You can customize shortcut key bindings in File > Preferences > Keyboard Shortcuts with query \"leetcode\".",
     hint_open_keybindings: "Open Keybindings",
     hint_webview_markdown: "You can change the webview appearance (\"fontSize\", \"lineWidth\" & \"fontFamily\") in \"markdown.preview\" configuration.",
+
+    // Status bar
+    click_to_refresh: "Click to refresh",
+
+    // Local test
+    local_test_not_supported: "Local testing is not supported for {0} language.",
+    local_test_no_main: "No main function found. Please add a main function with test cases.",
+    local_test_config_not_found: "No test environment found for {0}. Please install the corresponding runtime.",
+    local_test_success: "Local test passed.",
+    local_test_failed: "Local test failed: {0}",
+    local_test_running: "Running local test...",
+    local_test_title: "LeetCode Local Test",
 };

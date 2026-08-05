@@ -79,6 +79,29 @@ class ExplorerNodeManager implements Disposable {
         );
     }
 
+    public getAllNodesRaw(): LeetCodeNode[] {
+        return Array.from(this.explorerNodeMap.values());
+    }
+
+    public getStudyPlanProgress(): string {
+        const parts: string[] = [];
+        for (const plan of this.studyPlans) {
+            const ids: string[] = this.studyPlanProblemIdsCache.get(plan.slug) || [];
+            if (ids.length === 0) {
+                continue;
+            }
+            let ac: number = 0;
+            for (const id of ids) {
+                const node: LeetCodeNode | undefined = this.explorerNodeMap.get(id);
+                if (node && node.state === ProblemState.AC) {
+                    ac++;
+                }
+            }
+            parts.push(`${plan.name}: ${ac}/${ids.length}`);
+        }
+        return parts.join("  ");
+    }
+
     public getAllDifficultyNodes(): LeetCodeNode[] {
         const res: LeetCodeNode[] = [];
         res.push(

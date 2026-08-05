@@ -165,4 +165,16 @@ export const zhCN = {
     hint_shortcut: "你可以在 文件 > 首选项 > 键盘快捷方式 中搜索 \"leetcode\" 自定义快捷键。",
     hint_open_keybindings: "打开快捷键设置",
     hint_webview_markdown: "你可以在 \"markdown.preview\" 配置中修改预览外观（字号、行宽、字体）。",
+
+    // Status bar
+    click_to_refresh: "点击刷新",
+
+    // Local test
+    local_test_not_supported: "不支持 {0} 语言的本地测试。",
+    local_test_no_main: "未找到 main 函数。请添加一个包含测试用例的 main 函数。",
+    local_test_config_not_found: "未找到 {0} 的测试环境。请安装对应的运行时。",
+    local_test_success: "本地测试通过。",
+    local_test_failed: "本地测试失败: {0}",
+    local_test_running: "正在运行本地测试...",
+    local_test_title: "LeetCode 本地测试",
 };

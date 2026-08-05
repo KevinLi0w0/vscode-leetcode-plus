@@ -12,6 +12,7 @@ import * as show from "./commands/show";
 import * as star from "./commands/star";
 import * as submit from "./commands/submit";
 import * as test from "./commands/test";
+import * as localTest from "./commands/localTest";
 import { explorerNodeManager } from "./explorer/explorerNodeManager";
 import { LeetCodeNode } from "./explorer/LeetCodeNode";
 import { leetCodeTreeDataProvider } from "./explorer/LeetCodeTreeDataProvider";
@@ -75,7 +76,10 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
             vscode.commands.registerCommand("leetcode.pickOne", () => show.pickOne()),
             vscode.commands.registerCommand("leetcode.searchProblem", () => show.searchProblem()),
             vscode.commands.registerCommand("leetcode.showSolution", (input: LeetCodeNode | vscode.Uri) => show.showSolution(input)),
-            vscode.commands.registerCommand("leetcode.refreshExplorer", () => leetCodeTreeDataProvider.refresh()),
+            vscode.commands.registerCommand("leetcode.refreshExplorer", async () => {
+                await leetCodeTreeDataProvider.refresh();
+                leetCodeStatusBarController.updateProgress();
+            }),
             vscode.commands.registerCommand("leetcode.testSolution", (uri?: vscode.Uri) => {
                 TrackData.report({
                     event_key: `vscode_runCode`,
@@ -102,7 +106,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
             vscode.commands.registerCommand("leetcode.problems.sort", () => plugin.switchSortingStrategy()),
             vscode.commands.registerCommand("leetcode.toggleLanguage", () => toggleLanguage()),
             vscode.commands.registerCommand("leetcode.showSubmitDetail", (uri?: vscode.Uri) => submit.showSubmitDetail(uri)),
-            vscode.commands.registerCommand("leetcode.showTestDetail", (uri?: vscode.Uri) => test.showTestDetail(uri))
+            vscode.commands.registerCommand("leetcode.showTestDetail", (uri?: vscode.Uri) => test.showTestDetail(uri)),
+            vscode.commands.registerCommand("leetcode.runLocalTest", (uri?: vscode.Uri) => localTest.runLocalTest(uri))
         );
 
         await leetCodeExecutor.switchEndpoint(plugin.getLeetCodeEndpoint());
