@@ -131,10 +131,18 @@ export enum SortingStrategy {
 export const PREMIUM_URL_CN = "https://leetcode.cn/premium-payment/?source=vscode";
 export const PREMIUM_URL_GLOBAL = "https://leetcode.com/subscribe/?ref=lp_pl&source=vscode";
 
-const protocol = vscode.env.appName.includes('Insiders') ? "vscode-insiders" : "vscode"
+// Auto-detect IDE protocol scheme:
+// vscode.env.uriScheme returns the correct callback protocol for each editor:
+//   VS Code       → "vscode"
+//   VS Code Insiders → "vscode-insiders"
+//   CodeFuse      → "codefuse"
+//   Cursor        → "cursor"
+//   Windsurf      → "windsurf"
+// Any VS Code-based IDE is automatically supported.
+const protocol: string = vscode.env.uriScheme || "vscode";
 
 // Extension ID used for OAuth callback routing
-const extensionId = "KevinLi.vscode-leetcode-plus"
+const extensionId: string = "KevinLi.vscode-leetcode-plus";
 
 export const urls = {
     // base urls

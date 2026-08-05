@@ -107,10 +107,17 @@ Thanks to [@yihong0618](https://github.com/yihong0618) for a workaround. You can
 
 ## Requirements / 运行条件
 
-- [VS Code 1.30.1+](https://code.visualstudio.com/)
+- Any VS Code-based IDE (1.30.1+) / 任意基于 VS Code 的编辑器：
+  - [VS Code](https://code.visualstudio.com/)
+  - [Cursor](https://cursor.sh/)
+  - [CodeFuse](https://codefuse.alipay.com/)
+  - Windsurf, VSCodium, etc. / 等
 - [Node.js 10+](https://nodejs.org)
   > Ensure `Node` is in your `PATH`. You can also use `leetcode.nodePath` to specify the Node.js executable path.
   > 请确保 `Node` 在 `PATH` 环境变量中。也可通过 `leetcode.nodePath` 指定 `Node.js` 可执行文件路径。
+
+> **Multi-IDE Support / 多 IDE 支持**: OAuth login auto-detects your IDE and uses the correct callback protocol. Works out of the box on VS Code, Cursor, CodeFuse, and any other VS Code-based editor.
+> OAuth 登录自动检测当前 IDE 并使用正确的回调协议，在 VS Code、Cursor、CodeFuse 及其他基于 VS Code 的编辑器上开箱即用。
 
 ---
 
