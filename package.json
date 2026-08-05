@@ -1,7 +1,7 @@
 {
     "name": "vscode-leetcode-plus",
     "displayName": "LeetCode Plus",
-    "description": "Solve LeetCode problems in VS Code with i18n and study plan support",
+    "description": "Solve LeetCode problems in any VS Code-based IDE — with i18n (Chinese/English), study plans, and inline results",
     "version": "0.19.0",
     "author": "KevinLi",
     "publisher": "KevinLi",

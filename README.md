@@ -1,7 +1,7 @@
 # LeetCode Plus
 
-> Solve LeetCode problems in VS Code — with i18n (Chinese/English) and Study Plan support
-> 在 VS Code 中练习 LeetCode — 支持中英文切换与学习计划
+> Solve LeetCode problems in any VS Code-based IDE — with i18n (Chinese/English), study plans, and inline results
+> 在任意 VS Code 系编辑器中刷 LeetCode — 支持中英双语、学习计划、内联提交结果
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/KevinLi0w0/vscode-leetcode-plus/main/resources/LeetCode.png" alt="">
