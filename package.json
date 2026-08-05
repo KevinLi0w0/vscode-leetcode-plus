@@ -44,6 +44,9 @@
         "onCommand:leetcode.problems.sort",
         "onCommand:leetcode.toggleLanguage",
         "onCommand:leetcode.runLocalTest",
+        "onCommand:leetcode.startReview",
+        "onCommand:leetcode.restoreCode",
+        "onCommand:leetcode.toggleMastered",
         "onView:leetCodeExplorer"
     ],
     "main": "./out/src/extension",
@@ -156,6 +159,21 @@
             {
                 "command": "leetcode.runLocalTest",
                 "title": "Run Local Test",
+                "category": "LeetCode"
+            },
+            {
+                "command": "leetcode.startReview",
+                "title": "Start Review",
+                "category": "LeetCode"
+            },
+            {
+                "command": "leetcode.restoreCode",
+                "title": "Restore Code",
+                "category": "LeetCode"
+            },
+            {
+                "command": "leetcode.toggleMastered",
+                "title": "Toggle Mastered",
                 "category": "LeetCode"
             }
         ],

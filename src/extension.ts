@@ -13,6 +13,8 @@ import * as star from "./commands/star";
 import * as submit from "./commands/submit";
 import * as test from "./commands/test";
 import * as localTest from "./commands/localTest";
+import * as review from "./commands/review";
+import { reviewManager } from "./commands/reviewManager";
 import { explorerNodeManager } from "./explorer/explorerNodeManager";
 import { LeetCodeNode } from "./explorer/LeetCodeNode";
 import { leetCodeTreeDataProvider } from "./explorer/LeetCodeTreeDataProvider";
@@ -43,6 +45,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
         leetCodeTreeDataProvider.initialize(context);
         globalState.initialize(context);
+        reviewManager.initialize(context);
 
         context.subscriptions.push(
             leetCodeStatusBarController,
@@ -107,7 +110,10 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
             vscode.commands.registerCommand("leetcode.toggleLanguage", () => toggleLanguage()),
             vscode.commands.registerCommand("leetcode.showSubmitDetail", (uri?: vscode.Uri) => submit.showSubmitDetail(uri)),
             vscode.commands.registerCommand("leetcode.showTestDetail", (uri?: vscode.Uri) => test.showTestDetail(uri)),
-            vscode.commands.registerCommand("leetcode.runLocalTest", (uri?: vscode.Uri) => localTest.runLocalTest(uri))
+            vscode.commands.registerCommand("leetcode.runLocalTest", (uri?: vscode.Uri) => localTest.runLocalTest(uri)),
+            vscode.commands.registerCommand("leetcode.startReview", (uri?: vscode.Uri) => review.startReview(uri)),
+            vscode.commands.registerCommand("leetcode.restoreCode", (uri?: vscode.Uri) => review.restoreCode(uri)),
+            vscode.commands.registerCommand("leetcode.toggleMastered", (uri?: vscode.Uri) => review.toggleMastered(uri))
         );
 
         await leetCodeExecutor.switchEndpoint(plugin.getLeetCodeEndpoint());

@@ -177,4 +177,17 @@ export const en = {
     local_test_failed: "Local test failed: {0}",
     local_test_running: "Running local test...",
     local_test_title: "LeetCode Local Test",
+
+    // Review mode
+    codelens_review: "🔄 Review",
+    codelens_restore: "↩️ Restore",
+    codelens_mastered: "✅ Mastered",
+    codelens_unmastered: "⬜ Mark Mastered",
+    review_started: "Review mode started. Code cleared. Write your solution and submit.",
+    review_backup_not_found: "No backup found. Was review mode started?",
+    review_restored: "Code restored from backup.",
+    review_cleared: "Code cleared for review.",
+    review_mastered: "Problem marked as mastered.",
+    review_unmastered: "Problem unmarked as mastered.",
+    review_count_suffix: " (reviewed {0})",
 };

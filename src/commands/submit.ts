@@ -10,6 +10,7 @@ import { DialogType, promptForOpenOutputChannel, promptForSignIn } from "../util
 import { getActiveFilePath } from "../utils/workspaceUtils";
 import { t } from "../i18n";
 import { leetCodeSubmissionProvider } from "../webview/leetCodeSubmissionProvider";
+import { reviewManager } from "./reviewManager";
 
 interface ISubmitResult {
     passed: number;
@@ -64,6 +65,20 @@ export async function submitSolution(uri?: vscode.Uri): Promise<void> {
         if (fsPath) {
             if (parsed.accepted) {
                 customCodeLensProvider.setSubmitStatus(fsPath, "passed", parsed.passed, parsed.total, parsed.detail);
+
+                // If in review mode (backup exists), increment review count and clean up backup
+                if (reviewManager.hasBackup(fsPath)) {
+                    const problemId: string | undefined = reviewManager.getProblemIdFromUri(uri || vscode.window.activeTextEditor!.document.uri);
+                    if (problemId) {
+                        reviewManager.incrementReviewCount(problemId);
+                    }
+                    reviewManager.hasBackup(fsPath); // confirm backup still exists
+                    // Delete the backup file since review is complete
+                    const backupPath: string = reviewManager.getBackupPath(fsPath);
+                    const fse: any = require("fs-extra");
+                    await fse.remove(backupPath);
+                }
+
                 const action: string | undefined = await vscode.window.showInformationMessage(t("submit_accepted", String(parsed.passed), String(parsed.total)), t("view_details"));
                 if (action === t("view_details")) {
                     await vscode.commands.executeCommand("leetcode.showSubmitDetail", uri);

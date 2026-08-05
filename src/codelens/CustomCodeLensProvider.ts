@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 import { explorerNodeManager } from "../explorer/explorerNodeManager";
 import { LeetCodeNode } from "../explorer/LeetCodeNode";
 import { getEditorShortcuts } from "../utils/settingUtils";
+import { reviewManager } from "../commands/reviewManager";
 import { t } from "../i18n";
 
 export type SubmitStatus = "idle" | "pending" | "passed" | "failed";
@@ -129,6 +130,31 @@ export class CustomCodeLensProvider implements vscode.CodeLensProvider {
                 title: node.isFavorite ? t("codelens_unstar") : t("codelens_star"),
                 command: node.isFavorite ? "leetcode.removeFavorite" : "leetcode.addFavorite",
                 arguments: [node],
+            }));
+        }
+
+        // Review mode buttons (always shown)
+        codeLens.push(new vscode.CodeLens(range, {
+            title: t("codelens_review"),
+            command: "leetcode.startReview",
+            arguments: [document.uri],
+        }));
+
+        if (reviewManager.hasBackup(document.uri.fsPath)) {
+            codeLens.push(new vscode.CodeLens(range, {
+                title: t("codelens_restore"),
+                command: "leetcode.restoreCode",
+                arguments: [document.uri],
+            }));
+        }
+
+        // Mastered toggle
+        if (node) {
+            const mastered: boolean = reviewManager.isMastered(node.id);
+            codeLens.push(new vscode.CodeLens(range, {
+                title: mastered ? t("codelens_mastered") : t("codelens_unmastered"),
+                command: "leetcode.toggleMastered",
+                arguments: [document.uri],
             }));
         }
 

@@ -10,6 +10,7 @@ import { explorerNodeManager } from "./explorerNodeManager";
 import { LeetCodeNode } from "./LeetCodeNode";
 import { globalState } from "../globalState";
 import { t } from "../i18n";
+import { reviewManager } from "../commands/reviewManager";
 
 export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCodeNode> {
     private context: vscode.ExtensionContext;
@@ -49,7 +50,7 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
         }
 
         return {
-            label: element.isProblem ? `[${element.id}] ${element.name}` + this.parsePremiumUnLockIconPath(element) : element.name,
+            label: element.isProblem ? this.formatProblemLabel(element) : element.name,
             tooltip: this.getSubCategoryTooltip(element),
             collapsibleState: element.isProblem ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
             iconPath: this.parseIconPathFromProblemState(element),
@@ -98,6 +99,23 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
                     return explorerNodeManager.getChildrenNodesById(element.id);
             }
         }
+    }
+
+    private formatProblemLabel(element: LeetCodeNode): string {
+        let label: string = `[${element.id}] ${element.name}` + this.parsePremiumUnLockIconPath(element);
+
+        // Append review count if > 0
+        const reviewCount: number = reviewManager.getReviewCount(element.id);
+        if (reviewCount > 0) {
+            label += t("review_count_suffix", String(reviewCount));
+        }
+
+        // Dim mastered problems
+        if (reviewManager.isMastered(element.id)) {
+            return `$(check) ${label} — ${t("review_mastered")}`;
+        }
+
+        return label;
     }
 
     private parseIconPathFromProblemState(element: LeetCodeNode): string {
