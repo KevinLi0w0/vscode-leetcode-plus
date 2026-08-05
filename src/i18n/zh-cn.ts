@@ -179,14 +179,14 @@ export const zhCN = {
     local_test_title: "LeetCode 本地测试",
 
     // Review mode
-    codelens_review: "🔄 复习",
+    codelens_review: "🔄 重做",
     codelens_restore: "↩️ 恢复",
     codelens_mastered: "✅ 已熟练",
     codelens_unmastered: "⬜ 标记熟练",
-    review_started: "复习模式已启动，代码已清空。写完答案后提交即可。",
-    review_backup_not_found: "未找到备份。请先启动复习模式。",
+    review_started: "重做模式已启动，代码已重置为模板。写完答案后提交即可。",
+    review_backup_not_found: "未找到备份。请先启动重做模式。",
     review_restored: "代码已从备份恢复。",
-    review_cleared: "代码已清空，开始复习。",
+    review_cleared: "代码已重置，开始重做。",
     review_mastered: "已标记为熟练。",
     review_unmastered: "已取消熟练标记。",
     review_count_suffix: " (复习 {0} 次)",

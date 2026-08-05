@@ -163,7 +163,7 @@
             },
             {
                 "command": "leetcode.startReview",
-                "title": "Start Review",
+                "title": "Redo Problem",
                 "category": "LeetCode"
             },
             {

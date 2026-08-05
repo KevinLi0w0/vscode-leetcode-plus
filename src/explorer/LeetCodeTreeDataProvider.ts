@@ -49,13 +49,24 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             contextValue = element.id.toLowerCase();
         }
 
+        // For mastered problems, use a special URI scheme so the decoration provider can gray them out
+        let resourceUri: vscode.Uri = element.uri;
+        if (element.isProblem && reviewManager.isMastered(element.id)) {
+            resourceUri = vscode.Uri.from({
+                scheme: "leetcode-mastered",
+                authority: "problems",
+                path: `/${element.id}`,
+                query: `difficulty=${element.difficulty}`,
+            });
+        }
+
         return {
             label: element.isProblem ? this.formatProblemLabel(element) : element.name,
             tooltip: this.getSubCategoryTooltip(element),
             collapsibleState: element.isProblem ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
             iconPath: this.parseIconPathFromProblemState(element),
             command: element.isProblem ? element.previewCommand : undefined,
-            resourceUri: element.uri,
+            resourceUri,
             contextValue,
         };
     }
@@ -110,9 +121,9 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             label += t("review_count_suffix", String(reviewCount));
         }
 
-        // Dim mastered problems
+        // Mastered problems get a checkmark prefix
         if (reviewManager.isMastered(element.id)) {
-            return `$(check) ${label} — ${t("review_mastered")}`;
+            return `✓ ${label}`;
         }
 
         return label;

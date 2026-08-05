@@ -78,16 +78,42 @@ class ReviewManager {
 
     public async clearCode(filePath: string): Promise<void> {
         const content: string = await fse.readFile(filePath, "utf-8");
-        // Find @lc code=begin and @lc code=end, clear everything between them
-        const beginIdx: number = content.indexOf("@lc code=begin");
+        // LeetCode files use @lc code=start and @lc code=end (not "begin")
+        const beginIdx: number = content.indexOf("@lc code=start");
         const endIdx: number = content.indexOf("@lc code=end");
         if (beginIdx >= 0 && endIdx >= 0) {
             const before: string = content.substring(0, beginIdx);
             const after: string = content.substring(endIdx);
-            const newContent: string = before + "@lc code=begin\n\n" + after;
+            const codeSection: string = content.substring(beginIdx, endIdx);
+
+            // Keep class/function declarations, clear only the implementation body
+            const lines: string[] = codeSection.split("\n");
+            const keptLines: string[] = [];
+            for (const line of lines) {
+                const trimmed: string = line.trim();
+                // Keep markers, class/def/func declarations, and empty structure
+                if (trimmed.startsWith("@lc code=start") ||
+                    trimmed.startsWith("class ") ||
+                    trimmed.match(/^\s*def\s/) ||
+                    trimmed.match(/^\s*func\s/) ||
+                    trimmed.match(/^\s*public\s.*\(/) ||
+                    trimmed.match(/^\s*private\s.*\(/) ||
+                    trimmed.match(/^\s*protected\s.*\(/) ||
+                    trimmed.match(/^\s*static\s.*\(/) ||
+                    trimmed.match(/^\s*vector/) ||
+                    trimmed.match(/^\s*List/) ||
+                    trimmed === "" ||
+                    trimmed === ")" ||
+                    trimmed === "};") {
+                    keptLines.push(line);
+                }
+                // For Python: keep the def line but replace body with pass
+                // The actual clearing is simpler: just keep the template structure
+            }
+            const newContent: string = before + keptLines.join("\n") + "\n\n" + after;
             await fse.writeFile(filePath, newContent, "utf-8");
         } else {
-            // Just clear the whole file
+            // Fallback: just clear the whole file
             await fse.writeFile(filePath, "", "utf-8");
         }
     }

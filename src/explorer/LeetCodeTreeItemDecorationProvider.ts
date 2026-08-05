@@ -8,13 +8,15 @@ export class LeetCodeTreeItemDecorationProvider implements FileDecorationProvide
         hard: "H",
     };
 
-    private readonly ITEM_COLOR: { [key: string]: ThemeColor } = {
-        easy: new ThemeColor("charts.green"),
-        medium: new ThemeColor("charts.yellow"),
-        hard: new ThemeColor("charts.red"),
-    };
-
     public provideFileDecoration(uri: Uri): ProviderResult<FileDecoration>  {
+        // Mastered problems: gray out with no badge
+        if (uri.scheme === "leetcode-mastered") {
+            return {
+                color: new ThemeColor("descriptionForeground"),
+                tooltip: "Mastered",
+            };
+        }
+
         if (!this.isDifficultyBadgeEnabled()) {
             return;
         }
@@ -27,7 +29,7 @@ export class LeetCodeTreeItemDecorationProvider implements FileDecorationProvide
         const difficulty: string = params.get("difficulty")!.toLowerCase();
         return {
             badge: this.DIFFICULTY_BADGE_LABEL[difficulty],
-            color: this.ITEM_COLOR[difficulty],
+            // No color — keeps problem names uniformly white, badge-only difficulty indication
         };
     }
 
