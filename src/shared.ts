@@ -133,13 +133,16 @@ export const PREMIUM_URL_GLOBAL = "https://leetcode.com/subscribe/?ref=lp_pl&sou
 
 const protocol = vscode.env.appName.includes('Insiders') ? "vscode-insiders" : "vscode"
 
+// Extension ID used for OAuth callback routing
+const extensionId = "KevinLi.vscode-leetcode-plus"
+
 export const urls = {
     // base urls
     base: "https://leetcode.com",
     graphql: "https://leetcode.com/graphql",
     userGraphql: "https://leetcode.com/graphql",
     login: "https://leetcode.com/accounts/login/",
-    authLoginUrl: `https://leetcode.com/authorize-login/${protocol}/?path=leetcode.vscode-leetcode`,
+    authLoginUrl: `https://leetcode.com/authorize-login/${protocol}/?path=${extensionId}`,
 };
 
 export const urlsCn = {
@@ -148,7 +151,7 @@ export const urlsCn = {
     graphql: "https://leetcode.cn/graphql",
     userGraphql: "https://leetcode.cn/graphql/",
     login: "https://leetcode.cn/accounts/login/",
-    authLoginUrl: `https://leetcode.cn/authorize-login/${protocol}/?path=leetcode.vscode-leetcode`,
+    authLoginUrl: `https://leetcode.cn/authorize-login/${protocol}/?path=${extensionId}`,
 };
 
 export const getUrl = (key: string) => {
