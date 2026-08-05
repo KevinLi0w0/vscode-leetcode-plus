@@ -142,7 +142,7 @@ export const PREMIUM_URL_GLOBAL = "https://leetcode.com/subscribe/?ref=lp_pl&sou
 const protocol: string = vscode.env.uriScheme || "vscode";
 
 // Extension ID used for OAuth callback routing
-const extensionId: string = "KevinLi.vscode-leetcode-plus";
+const extensionId: string = "KevinLi0w0.vscode-leetcode-plus";
 
 export const urls = {
     // base urls
