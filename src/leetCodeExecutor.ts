@@ -56,7 +56,7 @@ class LeetCodeExecutor implements Disposable {
             await this.executeCommandEx(this.nodeExecutable, ["-v"]);
         } catch (error) {
             const choice: MessageItem | undefined = await window.showErrorMessage(
-                "LeetCode extension needs Node.js installed in environment path",
+                t("node_not_found"),
                 DialogOptions.open,
             );
             if (choice === DialogOptions.open) {

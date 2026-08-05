@@ -39,12 +39,12 @@ export async function previewProblem(input: IProblem | vscode.Uri, isSideMode: b
         const activeFilePath: string = input.fsPath;
         const id: string = await getNodeIdFromFile(activeFilePath);
         if (!id) {
-            vscode.window.showErrorMessage(`Failed to resolve the problem id from file: ${activeFilePath}.`);
+            vscode.window.showErrorMessage(t("failed_resolve_id", activeFilePath));
             return;
         }
         const cachedNode: IProblem | undefined = explorerNodeManager.getNodeById(id);
         if (!cachedNode) {
-            vscode.window.showErrorMessage(`Failed to resolve the problem with id: ${id}.`);
+            vscode.window.showErrorMessage(t("failed_resolve_problem", id));
             return;
         }
         node = cachedNode;
@@ -85,7 +85,7 @@ export async function searchProblem(): Promise<void> {
     }
     const choice: IQuickItemEx<IProblem> | undefined = await vscode.window.showQuickPick(parseProblemsToPicks(list.listProblems()), {
         matchOnDetail: true,
-        placeHolder: "Select one problem",
+        placeHolder: t("select_problem"),
     });
     if (!choice) {
         return;
@@ -107,7 +107,7 @@ export async function showSolution(input: LeetCodeNode | vscode.Uri): Promise<vo
     }
 
     if (!problemInput) {
-        vscode.window.showErrorMessage("Invalid input to fetch the solution data.");
+        vscode.window.showErrorMessage(t("invalid_solution_input"));
         return;
     }
 
@@ -181,7 +181,7 @@ async function showProblemInternal(node: IProblem): Promise<void> {
         if (finalPath) {
             finalPath = await resolveRelativePath(finalPath, node, language);
             if (!finalPath) {
-                leetCodeChannel.appendLine("Showing problem canceled by user.");
+                leetCodeChannel.appendLine(t("show_canceled"));
                 return;
             }
         }
@@ -213,8 +213,8 @@ async function showProblemInternal(node: IProblem): Promise<void> {
                 }),
                 promptHintMessage(
                     "hint.commentDescription",
-                    'You can config how to show the problem description through "leetcode.showDescription".',
-                    "Open settings",
+                    t("hint_comment_desc"),
+                    t("hint_open_settings"),
                     (): Promise<any> => openSettingsEditor("leetcode.showDescription")
                 ),
             ];
@@ -311,7 +311,7 @@ async function resolveTagForProblem(problem: IProblem): Promise<string | undefin
     }
     return await vscode.window.showQuickPick(problem.tags, {
         matchOnDetail: true,
-        placeHolder: "Multiple tags available, please select one",
+        placeHolder: t("multiple_tags"),
         ignoreFocusOut: true,
     });
 }
@@ -322,7 +322,7 @@ async function resolveCompanyForProblem(problem: IProblem): Promise<string | und
     }
     return await vscode.window.showQuickPick(problem.companies, {
         matchOnDetail: true,
-        placeHolder: "Multiple tags available, please select one",
+        placeHolder: t("multiple_tags"),
         ignoreFocusOut: true,
     });
 }

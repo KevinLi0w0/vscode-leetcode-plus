@@ -49,7 +49,7 @@ class LeetCodeManager extends EventEmitter {
         globalState.setUserStatus(data);
         await this.setCookieToCli(cookie, data.username);
         if (data.username) {
-            vscode.window.showInformationMessage(`Successfully ${data.username}.`);
+            vscode.window.showInformationMessage(t("login_success", data.username));
             this.currentUser = data.username;
             this.userStatus = UserStatus.SignedIn;
             this.emit("statusChanged");
@@ -77,7 +77,7 @@ class LeetCodeManager extends EventEmitter {
 
     public async handleInputCookieSignIn(): Promise<void> {
         const cookie: string | undefined = await vscode.window.showInputBox({
-            prompt: 'Enter LeetCode Cookie',
+            prompt: t("enter_cookie"),
             password: true,
             ignoreFocusOut: true,
             validateInput: (s: string): string | undefined =>
@@ -126,7 +126,7 @@ class LeetCodeManager extends EventEmitter {
     public async signOut(): Promise<void> {
         try {
             await leetCodeExecutor.signOut();
-            vscode.window.showInformationMessage("Successfully signed out.");
+            vscode.window.showInformationMessage(t("signout_success"));
             this.currentUser = undefined;
             this.userStatus = UserStatus.SignedOut;
             globalState.removeAll();

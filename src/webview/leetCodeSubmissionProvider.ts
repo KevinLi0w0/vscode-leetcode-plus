@@ -5,6 +5,7 @@ import { ViewColumn } from "vscode";
 import { openKeybindingsEditor, promptHintMessage } from "../utils/uiUtils";
 import { ILeetCodeWebviewOption, LeetCodeWebview } from "./LeetCodeWebview";
 import { markdownEngine } from "./markdownEngine";
+import { t } from "../i18n";
 
 class LeetCodeSubmissionProvider extends LeetCodeWebview {
 
@@ -64,8 +65,8 @@ class LeetCodeSubmissionProvider extends LeetCodeWebview {
     private async showKeybindingsHint(): Promise<void> {
         await promptHintMessage(
             "hint.commandShortcut",
-            'You can customize shortcut key bindings in File > Preferences > Keyboard Shortcuts with query "leetcode".',
-            "Open Keybindings",
+            t("hint_shortcut"),
+            t("hint_open_keybindings"),
             (): Promise<any> => openKeybindingsEditor("leetcode solution"),
         );
     }

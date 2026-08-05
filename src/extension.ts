@@ -100,7 +100,9 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
             vscode.commands.registerCommand("leetcode.addFavorite", (node: LeetCodeNode) => star.addFavorite(node)),
             vscode.commands.registerCommand("leetcode.removeFavorite", (node: LeetCodeNode) => star.removeFavorite(node)),
             vscode.commands.registerCommand("leetcode.problems.sort", () => plugin.switchSortingStrategy()),
-            vscode.commands.registerCommand("leetcode.toggleLanguage", () => toggleLanguage())
+            vscode.commands.registerCommand("leetcode.toggleLanguage", () => toggleLanguage()),
+            vscode.commands.registerCommand("leetcode.showSubmitDetail", (uri?: vscode.Uri) => submit.showSubmitDetail(uri)),
+            vscode.commands.registerCommand("leetcode.showTestDetail", (uri?: vscode.Uri) => test.showTestDetail(uri))
         );
 
         await leetCodeExecutor.switchEndpoint(plugin.getLeetCodeEndpoint());

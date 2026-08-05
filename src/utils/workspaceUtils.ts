@@ -9,6 +9,7 @@ import { IQuickItemEx } from "../shared";
 import { getWorkspaceConfiguration, getWorkspaceFolder } from "./settingUtils";
 import { showDirectorySelectDialog } from "./uiUtils";
 import * as wsl from "./wslUtils";
+import { t } from "../i18n";
 
 export async function selectWorkspaceFolder(): Promise<string> {
     let workspaceFolderSetting: string = getWorkspaceFolder();
@@ -30,25 +31,25 @@ export async function selectWorkspaceFolder(): Promise<string> {
     if (needAsk) {
         const choice: string | undefined = await vscode.window.showQuickPick(
             [
-                OpenOption.justOpenFile,
-                OpenOption.openInCurrentWindow,
-                OpenOption.openInNewWindow,
-                OpenOption.addToWorkspace,
+                t("workspace_just_open"),
+                t("workspace_open_current"),
+                t("workspace_open_new"),
+                t("workspace_add"),
             ],
-            { placeHolder: "The LeetCode workspace folder is not opened in VS Code, would you like to open it?" },
+            { placeHolder: t("workspace_not_opened") },
         );
 
         // Todo: generate file first
         switch (choice) {
-            case OpenOption.justOpenFile:
+            case t("workspace_just_open"):
                 return workspaceFolderSetting;
-            case OpenOption.openInCurrentWindow:
+            case t("workspace_open_current"):
                 await vscode.commands.executeCommand("vscode.openFolder", vscode.Uri.file(workspaceFolderSetting), false);
                 return "";
-            case OpenOption.openInNewWindow:
+            case t("workspace_open_new"):
                 await vscode.commands.executeCommand("vscode.openFolder", vscode.Uri.file(workspaceFolderSetting), true);
                 return "";
-            case OpenOption.addToWorkspace:
+            case t("workspace_add"):
                 vscode.workspace.updateWorkspaceFolders(vscode.workspace.workspaceFolders?.length ?? 0, 0, { uri: vscode.Uri.file(workspaceFolderSetting) });
                 break;
             default:
@@ -71,7 +72,7 @@ export async function getActiveFilePath(uri?: vscode.Uri): Promise<string | unde
         return undefined;
     }
     if (textEditor.document.isDirty && !await textEditor.document.save()) {
-        vscode.window.showWarningMessage("Please save the solution file first.");
+        vscode.window.showWarningMessage(t("save_file_first"));
         return undefined;
     }
     return wsl.useWsl() ? wsl.toWslPath(textEditor.document.uri.fsPath) : textEditor.document.uri.fsPath;
@@ -90,7 +91,7 @@ async function determineLeetCodeFolder(): Promise<string> {
     const picks: Array<IQuickItemEx<string>> = [];
     picks.push(
         {
-            label: `Default location`,
+            label: t("workspace_default"),
             detail: `${path.join(os.homedir(), ".leetcode")}`,
             value: `${path.join(os.homedir(), ".leetcode")}`,
         },
@@ -101,7 +102,7 @@ async function determineLeetCodeFolder(): Promise<string> {
     );
     const choice: IQuickItemEx<string> | undefined = await vscode.window.showQuickPick(
         picks,
-        { placeHolder: "Select where you would like to save your LeetCode files" },
+        { placeHolder: t("workspace_select_save") },
     );
     if (!choice) {
         result = "";
@@ -119,11 +120,4 @@ async function determineLeetCodeFolder(): Promise<string> {
     getWorkspaceConfiguration().update("workspaceFolder", result, vscode.ConfigurationTarget.Global);
 
     return result;
-}
-
-enum OpenOption {
-    justOpenFile = "Just open the problem file",
-    openInCurrentWindow = "Open in current window",
-    openInNewWindow = "Open in new window",
-    addToWorkspace = "Add to workspace",
 }
