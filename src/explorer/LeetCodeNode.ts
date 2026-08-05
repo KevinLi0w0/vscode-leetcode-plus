@@ -51,7 +51,7 @@ export class LeetCodeNode {
     public get previewCommand(): Command {
         return {
             title: t("preview_problem"),
-            command: "leetcode.previewProblem",
+            command: "leetcode.showProblem",
             arguments: [this],
         };
     }
