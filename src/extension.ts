@@ -111,8 +111,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
             vscode.commands.registerCommand("leetcode.showSubmitDetail", (uri?: vscode.Uri) => submit.showSubmitDetail(uri)),
             vscode.commands.registerCommand("leetcode.showTestDetail", (uri?: vscode.Uri) => test.showTestDetail(uri)),
             vscode.commands.registerCommand("leetcode.runLocalTest", (uri?: vscode.Uri) => localTest.runLocalTest(uri)),
-            vscode.commands.registerCommand("leetcode.startReview", (uri?: vscode.Uri) => review.startReview(uri)),
-            vscode.commands.registerCommand("leetcode.restoreCode", (uri?: vscode.Uri) => review.restoreCode(uri)),
+            vscode.commands.registerCommand("leetcode.toggleRedo", (uri?: vscode.Uri) => review.toggleRedo(uri)),
             vscode.commands.registerCommand("leetcode.toggleMastered", (uri?: vscode.Uri) => review.toggleMastered(uri))
         );
 

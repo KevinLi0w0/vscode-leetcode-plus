@@ -133,20 +133,13 @@ export class CustomCodeLensProvider implements vscode.CodeLensProvider {
             }));
         }
 
-        // Review mode buttons (always shown)
+        // Redo/Restore toggle button (always shown, single button)
+        const hasBackup: boolean = reviewManager.hasBackup(document.uri.fsPath);
         codeLens.push(new vscode.CodeLens(range, {
-            title: t("codelens_review"),
-            command: "leetcode.startReview",
+            title: hasBackup ? t("codelens_restore") : t("codelens_review"),
+            command: "leetcode.toggleRedo",
             arguments: [document.uri],
         }));
-
-        if (reviewManager.hasBackup(document.uri.fsPath)) {
-            codeLens.push(new vscode.CodeLens(range, {
-                title: t("codelens_restore"),
-                command: "leetcode.restoreCode",
-                arguments: [document.uri],
-            }));
-        }
 
         // Mastered toggle
         if (node) {

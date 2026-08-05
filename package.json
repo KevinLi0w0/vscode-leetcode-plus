@@ -44,8 +44,7 @@
         "onCommand:leetcode.problems.sort",
         "onCommand:leetcode.toggleLanguage",
         "onCommand:leetcode.runLocalTest",
-        "onCommand:leetcode.startReview",
-        "onCommand:leetcode.restoreCode",
+        "onCommand:leetcode.toggleRedo",
         "onCommand:leetcode.toggleMastered",
         "onView:leetCodeExplorer"
     ],
@@ -162,13 +161,8 @@
                 "category": "LeetCode"
             },
             {
-                "command": "leetcode.startReview",
-                "title": "Redo Problem",
-                "category": "LeetCode"
-            },
-            {
-                "command": "leetcode.restoreCode",
-                "title": "Restore Code",
+                "command": "leetcode.toggleRedo",
+                "title": "Toggle Redo / Restore",
                 "category": "LeetCode"
             },
             {

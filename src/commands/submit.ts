@@ -66,17 +66,16 @@ export async function submitSolution(uri?: vscode.Uri): Promise<void> {
             if (parsed.accepted) {
                 customCodeLensProvider.setSubmitStatus(fsPath, "passed", parsed.passed, parsed.total, parsed.detail);
 
-                // If in review mode (backup exists), increment review count and clean up backup
+                // If in redo mode (backup exists), increment review count and clean up backup
                 if (reviewManager.hasBackup(fsPath)) {
                     const problemId: string | undefined = reviewManager.getProblemIdFromUri(uri || vscode.window.activeTextEditor!.document.uri);
                     if (problemId) {
                         reviewManager.incrementReviewCount(problemId);
                     }
-                    reviewManager.hasBackup(fsPath); // confirm backup still exists
-                    // Delete the backup file since review is complete
+                    // Delete the backup file and refresh CodeLens so button changes back to "Redo"
                     const backupPath: string = reviewManager.getBackupPath(fsPath);
-                    const fse: any = require("fs-extra");
-                    await fse.remove(backupPath);
+                    await require("fs-extra").remove(backupPath);
+                    customCodeLensProvider.refresh();
                 }
 
                 const action: string | undefined = await vscode.window.showInformationMessage(t("submit_accepted", String(parsed.passed), String(parsed.total)), t("view_details"));

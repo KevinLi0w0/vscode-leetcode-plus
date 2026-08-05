@@ -4,44 +4,40 @@
 import * as vscode from "vscode";
 import { reviewManager } from "./reviewManager";
 import { leetCodeTreeDataProvider } from "../explorer/LeetCodeTreeDataProvider";
+import { customCodeLensProvider } from "../codelens/CustomCodeLensProvider";
 import { t } from "../i18n";
 
-export async function startReview(uri?: vscode.Uri): Promise<void> {
+export async function toggleRedo(uri?: vscode.Uri): Promise<void> {
     const fileUri: vscode.Uri | undefined = uri || vscode.window.activeTextEditor?.document.uri;
     if (!fileUri) {
         return;
     }
 
-    // Backup current code
-    await reviewManager.backupCode(fileUri.fsPath);
-    // Clear code between @lc markers
-    await reviewManager.clearCode(fileUri.fsPath);
+    const hasBackup: boolean = reviewManager.hasBackup(fileUri.fsPath);
 
-    // Reload the file in editor
-    const doc: vscode.TextDocument = await vscode.workspace.openTextDocument(fileUri);
-    await vscode.window.showTextDocument(doc, { preview: false });
+    if (hasBackup) {
+        // Currently in redo mode → Restore code
+        await reviewManager.restoreCode(fileUri.fsPath);
 
-    vscode.window.showInformationMessage(t("review_started"));
-}
+        // Reload the file in editor
+        const doc: vscode.TextDocument = await vscode.workspace.openTextDocument(fileUri);
+        await vscode.window.showTextDocument(doc, { preview: false });
 
-export async function restoreCode(uri?: vscode.Uri): Promise<void> {
-    const fileUri: vscode.Uri | undefined = uri || vscode.window.activeTextEditor?.document.uri;
-    if (!fileUri) {
-        return;
+        vscode.window.showInformationMessage(t("review_restored"));
+    } else {
+        // Not in redo mode → Start redo: backup current code, then clear
+        await reviewManager.backupCode(fileUri.fsPath);
+        await reviewManager.clearCode(fileUri.fsPath);
+
+        // Reload the file in editor
+        const doc: vscode.TextDocument = await vscode.workspace.openTextDocument(fileUri);
+        await vscode.window.showTextDocument(doc, { preview: false });
+
+        vscode.window.showInformationMessage(t("review_started"));
     }
 
-    if (!reviewManager.hasBackup(fileUri.fsPath)) {
-        vscode.window.showWarningMessage(t("review_backup_not_found"));
-        return;
-    }
-
-    await reviewManager.restoreCode(fileUri.fsPath);
-
-    // Reload the file in editor
-    const doc: vscode.TextDocument = await vscode.workspace.openTextDocument(fileUri);
-    await vscode.window.showTextDocument(doc, { preview: false });
-
-    vscode.window.showInformationMessage(t("review_restored"));
+    // Refresh CodeLens to update button text
+    customCodeLensProvider.refresh();
 }
 
 export async function toggleMastered(uri?: vscode.Uri): Promise<void> {

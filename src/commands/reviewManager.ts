@@ -78,44 +78,51 @@ class ReviewManager {
 
     public async clearCode(filePath: string): Promise<void> {
         const content: string = await fse.readFile(filePath, "utf-8");
-        // LeetCode files use @lc code=start and @lc code=end (not "begin")
-        const beginIdx: number = content.indexOf("@lc code=start");
-        const endIdx: number = content.indexOf("@lc code=end");
-        if (beginIdx >= 0 && endIdx >= 0) {
-            const before: string = content.substring(0, beginIdx);
-            const after: string = content.substring(endIdx);
-            const codeSection: string = content.substring(beginIdx, endIdx);
+        const lines: string[] = content.split("\n");
 
-            // Keep class/function declarations, clear only the implementation body
-            const lines: string[] = codeSection.split("\n");
-            const keptLines: string[] = [];
-            for (const line of lines) {
-                const trimmed: string = line.trim();
-                // Keep markers, class/def/func declarations, and empty structure
-                if (trimmed.startsWith("@lc code=start") ||
-                    trimmed.startsWith("class ") ||
-                    trimmed.match(/^\s*def\s/) ||
-                    trimmed.match(/^\s*func\s/) ||
-                    trimmed.match(/^\s*public\s.*\(/) ||
-                    trimmed.match(/^\s*private\s.*\(/) ||
-                    trimmed.match(/^\s*protected\s.*\(/) ||
-                    trimmed.match(/^\s*static\s.*\(/) ||
-                    trimmed.match(/^\s*vector/) ||
-                    trimmed.match(/^\s*List/) ||
-                    trimmed === "" ||
-                    trimmed === ")" ||
-                    trimmed === "};") {
-                    keptLines.push(line);
-                }
-                // For Python: keep the def line but replace body with pass
-                // The actual clearing is simpler: just keep the template structure
+        // Find the line indices of @lc code=start and @lc code=end
+        let startLineIdx: number = -1;
+        let endLineIdx: number = -1;
+
+        for (let i: number = 0; i < lines.length; i++) {
+            const trimmed: string = lines[i].trim();
+            if (trimmed.includes("@lc code=start")) {
+                startLineIdx = i;
             }
-            const newContent: string = before + keptLines.join("\n") + "\n\n" + after;
-            await fse.writeFile(filePath, newContent, "utf-8");
-        } else {
-            // Fallback: just clear the whole file
-            await fse.writeFile(filePath, "", "utf-8");
+            if (trimmed.includes("@lc code=end")) {
+                endLineIdx = i;
+            }
         }
+
+        if (startLineIdx < 0 || endLineIdx < 0 || endLineIdx <= startLineIdx) {
+            return; // Can't find markers, do nothing
+        }
+
+        // Keep everything before @lc code=start (including the marker line itself)
+        const before: string[] = lines.slice(0, startLineIdx + 1);
+        // Keep everything from @lc code=end onward (including the marker line itself)
+        const after: string[] = lines.slice(endLineIdx);
+
+        // Extract code between markers (lines after start, before end)
+        const codeLines: string[] = lines.slice(startLineIdx + 1, endLineIdx);
+
+        // Keep only class/function declaration lines, replace body with empty
+        const keptCode: string[] = [];
+        for (const line of codeLines) {
+            const trimmed: string = line.trim();
+            // Keep the structural template lines: class, def, function signatures
+            if (trimmed.startsWith("class ") ||
+                trimmed.match(/^(public|private|protected|static|func|def|vector|List)\s/) ||
+                trimmed.match(/^\s*(def|func)\s/) ||
+                (trimmed === "" && keptCode.length === 0)) {
+                keptCode.push(line);
+            }
+        }
+
+        // Reassemble: before + blank line + kept template lines + blank + marker end
+        // The "after" array already has the @lc code=end line with its original comment prefix
+        const newContent: string = [...before, ...keptCode, "", ...after].join("\n");
+        await fse.writeFile(filePath, newContent, "utf-8");
     }
 
     // --- Problem ID from file ---
