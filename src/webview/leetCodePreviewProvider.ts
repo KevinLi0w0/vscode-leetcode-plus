@@ -3,9 +3,12 @@
 
 import { commands, ViewColumn, workspace } from "vscode";
 import { getLeetCodeEndpoint } from "../commands/plugin";
+import { reviewManager } from "../commands/reviewManager";
 import { Endpoint, IProblem } from "../shared";
 import { ILeetCodeWebviewOption, LeetCodeWebview } from "./LeetCodeWebview";
 import { markdownEngine } from "./markdownEngine";
+import { t } from "../i18n";
+import { leetCodeFlashcardView } from "./leetCodeFlashcardView";
 
 class LeetCodePreviewProvider extends LeetCodeWebview {
     protected readonly viewType: string = "leetcode.preview";
@@ -21,6 +24,8 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
         this.description = this.parseDescription(descString, node);
         this.node = node;
         this.sideMode = isSideMode;
+        // Push flashcard to bottom panel
+        leetCodeFlashcardView.updateFlashcard(node.id);
         this.showWebviewInternal();
     }
 
@@ -31,7 +36,6 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
                 viewColumn: ViewColumn.One,
             };
         } else {
-            // When sideMode, check layout setting: preview on left (default) or right
             const previewOnLeft: boolean = workspace.getConfiguration("leetcode").get<boolean>("editor.previewOnLeft", true);
             return {
                 title: "Description",
@@ -69,6 +73,23 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
         };
         const { title, url, category, difficulty, likes, dislikes, body } = this.description;
         const head: string = markdownEngine.render(`# [${title}](${url})`);
+
+        // Review info line: show review count and mastered status below the title
+        const problemId: string = this.node.id;
+        const reviewCount: number = reviewManager.getReviewCount(problemId);
+        const isMastered: boolean = reviewManager.isMastered(problemId);
+        let reviewInfoHtml: string = "";
+        if (reviewCount > 0 || isMastered) {
+            const reviewParts: string[] = [];
+            if (isMastered) {
+                reviewParts.push(t("codelens_mastered"));
+            }
+            if (reviewCount > 0) {
+                reviewParts.push(t("review_count_suffix", String(reviewCount)));
+            }
+            reviewInfoHtml = markdownEngine.render(`> ${reviewParts.join(" &nbsp; ")}`);
+        }
+
         const info: string = markdownEngine.render(
             [
                 `| Category | Difficulty | Likes | Dislikes |`,
@@ -79,7 +100,7 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
         const tags: string = [
             `<details>`,
             `<summary><strong>Tags</strong></summary>`,
-            markdownEngine.render(this.description.tags.map((t: string) => `[\`${t}\`](${this.getTagLink(t)})`).join(" | ")),
+            markdownEngine.render(this.description.tags.map((tag: string) => `[\`${tag}\`](${this.getTagLink(tag)})`).join(" | ")),
             `</details>`,
         ].join("\n");
         const companies: string = [
@@ -89,6 +110,7 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
             `</details>`,
         ].join("\n");
         const links: string = markdownEngine.render(`[Submissions](${this.getSubmissionsLink(url)}) | [Solution](${this.getSolutionsLink(url)})`);
+
         return `
             <!DOCTYPE html>
             <html>
@@ -102,6 +124,7 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
             </head>
             <body>
                 ${head}
+                ${reviewInfoHtml}
                 ${info}
                 ${tags}
                 ${companies}
@@ -132,30 +155,9 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
         }
     }
 
-    // private async hideSideBar(): Promise<void> {
-    //     await commands.executeCommand("workbench.action.focusSideBar");
-    //     await commands.executeCommand("workbench.action.toggleSidebarVisibility");
-    // }
-
     private parseDescription(descString: string, problem: IProblem): IDescription {
-        const [
-            ,
-            ,
-            /* title */ url,
-            ,
-            ,
-            ,
-            ,
-            ,
-            /* tags */ /* langs */ category,
-            difficulty,
-            likes,
-            dislikes,
-            ,
-            ,
-            ,
-            ,
-            /* accepted */ /* submissions */ /* testcase */ ...body
+        const [ , , /* title */ url, , , , , , /* tags */ /* langs */ category,
+                 difficulty, likes, dislikes, , , , , /* accepted */ /* submissions */ /* testcase */ ...body
         ] = descString.split("\n");
         return {
             title: problem.name,
@@ -174,11 +176,9 @@ class LeetCodePreviewProvider extends LeetCodeWebview {
         const endPoint: string = getLeetCodeEndpoint();
         if (endPoint === Endpoint.LeetCodeCN) {
             return `https://leetcode.cn/tag/${tag}?source=vscode`;
-        } else if (endPoint === Endpoint.LeetCode) {
+        } else {
             return `https://leetcode.com/tag/${tag}?source=vscode`;
         }
-
-        return "https://leetcode.com?source=vscode";
     }
 
     private getSolutionsLink(url: string): string {

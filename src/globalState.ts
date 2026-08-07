@@ -25,6 +25,10 @@ class GlobalState {
         this._state = this.context.globalState;
     }
 
+    public get extensionPath(): string {
+        return this.context.extensionPath;
+    }
+
     public setCookie(cookie: string): any {
         this._cookie = cookie;
         return this._state.update(CookieKey, this._cookie);

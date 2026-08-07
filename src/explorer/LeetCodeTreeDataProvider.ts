@@ -60,15 +60,18 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             });
         }
 
-        return {
-            label: element.isProblem ? this.formatProblemLabel(element) : element.name,
+        const isProblem = element.isProblem;
+        const treeItem: vscode.TreeItem = {
+            label: isProblem ? this.formatProblemLabel(element) : element.name,
             tooltip: this.getSubCategoryTooltip(element),
-            collapsibleState: element.isProblem ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
+            collapsibleState: isProblem ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
             iconPath: this.parseIconPathFromProblemState(element),
-            command: element.isProblem ? element.previewCommand : undefined,
+            command: isProblem ? element.previewCommand : undefined,
             resourceUri,
             contextValue,
         };
+
+        return treeItem;
     }
 
     public getChildren(element?: LeetCodeNode | undefined): vscode.ProviderResult<LeetCodeNode[]> {
@@ -88,8 +91,21 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             return explorerNodeManager.getRootNodes();
         } else if (element.id === Category.StudyPlan) {
             return explorerNodeManager.getStudyPlanNodes();
+        } else if (element.id.startsWith("topic:")) {
+            // Topic sub-node within a study plan (e.g., topic:top-100-liked:0)
+            const parts: string[] = element.id.split(":");
+            const planSlug: string = parts[1];
+            const topicIndex: number = parseInt(parts[2], 10);
+            return explorerNodeManager.getStudyPlanTopicProblemNodes(planSlug, topicIndex);
         } else if (element.id.startsWith("studyplan:")) {
             const planSlug: string = element.id.substring("studyplan:".length);
+            // Hot 100 shows topic grouping; other plans show flat list
+            if (planSlug === "top-100-liked") {
+                const topicNodes = explorerNodeManager.getStudyPlanTopicNodes(planSlug);
+                if (topicNodes.length > 0) {
+                    return topicNodes;
+                }
+            }
             return explorerNodeManager.getStudyPlanProblemNodes(planSlug);
         } else {
             switch (element.id) {
@@ -113,28 +129,7 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
     }
 
     private formatProblemLabel(element: LeetCodeNode): string {
-        let label: string = `[${element.id}] ${element.name}` + this.parsePremiumUnLockIconPath(element);
-
-        // Difficulty emoji: green/easy, yellow/medium, red/hard — colored, but name stays white
-        const diffEmoji: string = this.getDifficultyEmoji(element.difficulty);
-        label += ` ${diffEmoji}`;
-
-        // Append review count if > 0
-        const reviewCount: number = reviewManager.getReviewCount(element.id);
-        if (reviewCount > 0) {
-            label += t("review_count_suffix", String(reviewCount));
-        }
-
-        return label;
-    }
-
-    private getDifficultyEmoji(difficulty: string): string {
-        switch (difficulty.toLowerCase()) {
-            case "easy": return "\u{1F7E2}";   // 🟢
-            case "medium": return "\u{1F7E1}";  // 🟡
-            case "hard": return "\u{1F534}";    // 🔴
-            default: return "";
-        }
+        return `[${element.id}] ${element.name}` + this.parsePremiumUnLockIconPath(element);
     }
 
     private parseIconPathFromProblemState(element: LeetCodeNode): string {

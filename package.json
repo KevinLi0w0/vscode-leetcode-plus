@@ -178,6 +178,13 @@
                     "title": "LeetCode",
                     "icon": "resources/LeetCode.svg"
                 }
+            ],
+            "panel": [
+                {
+                    "id": "leetcode-panel",
+                    "title": "LeetCode Flashcard",
+                    "icon": "resources/LeetCode.svg"
+                }
             ]
         },
         "views": {
@@ -185,6 +192,13 @@
                 {
                     "id": "leetCodeExplorer",
                     "name": "Problems"
+                }
+            ],
+            "leetcode-panel": [
+                {
+                    "id": "leetcode.flashcardView",
+                    "name": "Flashcard",
+                    "type": "webview"
                 }
             ]
         },
@@ -745,6 +759,18 @@
                         "default": true,
                         "scope": "application",
                         "description": "When side mode is enabled, place the problem preview on the left and the code editor on the right. Set to false for the original layout (code left, preview right)."
+                    },
+                    "leetcode.flashcard.fontSize": {
+                        "type": "number",
+                        "default": 14,
+                        "scope": "application",
+                        "description": "Font size (px) for the flashcard tab content. Default 14."
+                    },
+                    "leetcode.flashcard.codeFontSize": {
+                        "type": "number",
+                        "default": 13,
+                        "scope": "application",
+                        "description": "Font size (px) for code blocks in the flashcard tab. Default 13."
                     },
                     "leetcode.nodePath": {
                         "type": "string",

@@ -6,7 +6,7 @@ import { Disposable, workspace } from "vscode";
 import * as list from "../commands/list";
 import { getSortingStrategy } from "../commands/plugin";
 import { fetchStudyPlanProblemIds } from "../commands/studyPlan";
-import { Category, defaultProblem, Endpoint, IStudyPlanItem, ProblemState, SortingStrategy } from "../shared";
+import { Category, defaultProblem, Endpoint, HOT100_TOPICS, IStudyPlanItem, ProblemState, SortingStrategy } from "../shared";
 import { getLeetCodeEndpoint } from "../commands/plugin";
 import { shouldHideSolvedProblem } from "../utils/settingUtils";
 import { t } from "../i18n";
@@ -191,6 +191,35 @@ class ExplorerNodeManager implements Disposable {
 
         const res: LeetCodeNode[] = [];
         for (const id of problemIds) {
+            const node: LeetCodeNode | undefined = this.explorerNodeMap.get(id);
+            if (node) {
+                res.push(node);
+            }
+        }
+        return res;
+    }
+
+    // For Hot 100: return topic sub-nodes (哈希, 双指针, etc.)
+    public getStudyPlanTopicNodes(planSlug: string): LeetCodeNode[] {
+        if (planSlug === "top-100-liked") {
+            return HOT100_TOPICS.map((topic, index) =>
+                new LeetCodeNode(Object.assign({}, defaultProblem, {
+                    id: `topic:${planSlug}:${index}`,
+                    name: topic.i18nKey ? t(topic.i18nKey as any) : topic.name,
+                }), false),
+            );
+        }
+        return [];
+    }
+
+    // Get problems within a specific topic
+    public getStudyPlanTopicProblemNodes(_planSlug: string, topicIndex: number): LeetCodeNode[] {
+        const topic = HOT100_TOPICS[topicIndex];
+        if (!topic) {
+            return [];
+        }
+        const res: LeetCodeNode[] = [];
+        for (const id of topic.problemIds) {
             const node: LeetCodeNode | undefined = this.explorerNodeMap.get(id);
             if (node) {
                 res.push(node);

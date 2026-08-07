@@ -190,4 +190,30 @@ export const zhCN = {
     review_mastered: "已标记为熟练。",
     review_unmastered: "已取消熟练标记。",
     review_count_suffix: " (复习 {0} 次)",
+
+    // Hot 100 topics
+    topic_hash: "哈希",
+    topic_two_pointers: "双指针",
+    topic_sliding_window: "滑动窗口",
+    topic_substring: "子串",
+    topic_array: "普通数组",
+    topic_matrix: "矩阵",
+    topic_linked_list: "链表",
+    topic_binary_tree: "二叉树",
+    topic_graph: "图论",
+    topic_backtracking: "回溯",
+    topic_binary_search: "二分查找",
+    topic_stack: "栈",
+    topic_heap: "堆",
+    topic_greedy: "贪心算法",
+    topic_dp: "动态规划",
+    topic_multi_dp: "多维动态规划",
+    topic_techniques: "技巧",
+
+    // Flashcard
+    flashcard_tab_description: "题目描述",
+    flashcard_tab_card: "默写卡",
+    flashcard_not_available: "暂无默写卡",
+    flashcard_no_problem: "请在左侧 LeetCode 面板中点开一道题目，默写卡将显示在此处。",
+    flashcard_title: "默写卡",
 };

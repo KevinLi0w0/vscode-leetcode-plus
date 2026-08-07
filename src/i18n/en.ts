@@ -190,4 +190,30 @@ export const en = {
     review_mastered: "Problem marked as mastered.",
     review_unmastered: "Problem unmarked as mastered.",
     review_count_suffix: " (reviewed {0})",
+
+    // Hot 100 topics
+    topic_hash: "Hash",
+    topic_two_pointers: "Two Pointers",
+    topic_sliding_window: "Sliding Window",
+    topic_substring: "Substring",
+    topic_array: "Array",
+    topic_matrix: "Matrix",
+    topic_linked_list: "Linked List",
+    topic_binary_tree: "Binary Tree",
+    topic_graph: "Graph",
+    topic_backtracking: "Backtracking",
+    topic_binary_search: "Binary Search",
+    topic_stack: "Stack",
+    topic_heap: "Heap",
+    topic_greedy: "Greedy",
+    topic_dp: "Dynamic Programming",
+    topic_multi_dp: "Multi-Dimensional DP",
+    topic_techniques: "Techniques",
+
+    // Flashcard
+    flashcard_tab_description: "Description",
+    flashcard_tab_card: "Flashcard",
+    flashcard_not_available: "No flashcard available",
+    flashcard_no_problem: "Open a problem from the LeetCode panel and the flashcard will appear here.",
+    flashcard_title: "Flashcard",
 };
