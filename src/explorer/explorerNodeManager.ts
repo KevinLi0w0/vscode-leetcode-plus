@@ -6,7 +6,7 @@ import { Disposable, workspace } from "vscode";
 import * as list from "../commands/list";
 import { getSortingStrategy } from "../commands/plugin";
 import { fetchStudyPlanProblemIds } from "../commands/studyPlan";
-import { Category, defaultProblem, Endpoint, HOT100_TOPICS, IStudyPlanItem, ProblemState, SortingStrategy } from "../shared";
+import { Category, defaultProblem, Endpoint, STUDY_PLAN_TOPICS, IStudyPlanItem, ProblemState, SortingStrategy } from "../shared";
 import { getLeetCodeEndpoint } from "../commands/plugin";
 import { shouldHideSolvedProblem } from "../utils/settingUtils";
 import { t } from "../i18n";
@@ -199,22 +199,27 @@ class ExplorerNodeManager implements Disposable {
         return res;
     }
 
-    // For Hot 100: return topic sub-nodes (哈希, 双指针, etc.)
+    // For study plans with topic groupings: return topic sub-nodes
     public getStudyPlanTopicNodes(planSlug: string): LeetCodeNode[] {
-        if (planSlug === "top-100-liked") {
-            return HOT100_TOPICS.map((topic, index) =>
-                new LeetCodeNode(Object.assign({}, defaultProblem, {
-                    id: `topic:${planSlug}:${index}`,
-                    name: topic.i18nKey ? t(topic.i18nKey as any) : topic.name,
-                }), false),
-            );
+        const topics = STUDY_PLAN_TOPICS[planSlug];
+        if (!topics) {
+            return [];
         }
-        return [];
+        return topics.map((topic, index) =>
+            new LeetCodeNode(Object.assign({}, defaultProblem, {
+                id: `topic:${planSlug}:${index}`,
+                name: topic.i18nKey ? t(topic.i18nKey as any) : topic.name,
+            }), false),
+        );
     }
 
     // Get problems within a specific topic
-    public getStudyPlanTopicProblemNodes(_planSlug: string, topicIndex: number): LeetCodeNode[] {
-        const topic = HOT100_TOPICS[topicIndex];
+    public getStudyPlanTopicProblemNodes(planSlug: string, topicIndex: number): LeetCodeNode[] {
+        const topics = STUDY_PLAN_TOPICS[planSlug];
+        if (!topics) {
+            return [];
+        }
+        const topic = topics[topicIndex];
         if (!topic) {
             return [];
         }

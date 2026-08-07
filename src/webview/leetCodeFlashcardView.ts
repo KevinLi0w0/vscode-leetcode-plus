@@ -82,18 +82,48 @@ class LeetCodeFlashcardView implements vscode.WebviewViewProvider {
             <head>
                 ${markdownEngine.getStyles()}
                 <style>
+                    /* highlight.js GitHub Dark theme for syntax coloring */
+                    .hljs { display: block; overflow-x: auto; padding: 0.5em; color: #c9d1d9; background: #161b22; }
+                    .hljs-comment, .hljs-quote { color: #8b949e; font-style: italic; }
+                    .hljs-keyword, .hljs-selector-tag, .hljs-type, .hljs-literal, .hljs-name, .hljs-attribute { color: #ff7b72; }
+                    .hljs-string, .hljs-regexp, .hljs-addition { color: #a5d6ff; }
+                    .hljs-number, .hljs-meta, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params { color: #79c0ff; }
+                    .hljs-function .hljs-title, .hljs-section, .hljs-selector-id { color: #d2a8ff; }
+                    .hljs-title.function_ { color: #d2a8ff; }
+                    .hljs-tag { color: #7ee787; }
+                    .hljs-deletion { color: #ffa657; }
+                    .hljs-variable, .hljs-template-variable { color: #ffa657; }
+                    .hljs-link { color: #a5d6ff; font-decoration: underline; }
+                    .hljs-emphasis { font-style: italic; }
+                    .hljs-strong { font-weight: bold; }
+
                     body {
                         font-size: ${fontSize}px;
                         line-height: 1.6;
                         padding: 0.8rem 1.2rem;
                         margin: 0;
                     }
-                    pre, code {
+                    pre {
                         font-size: ${codeFontSize}px;
                         line-height: 1.5;
-                    }
-                    pre {
                         overflow-x: auto;
+                        background: #161b22 !important;
+                        padding: 0.8em 1em;
+                        border-radius: 6px;
+                    }
+                    pre code, code {
+                        font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+                        font-size: ${codeFontSize}px;
+                    }
+                    code {
+                        background: rgba(110,118,129,0.2);
+                        padding: 0.1em 0.3em;
+                        border-radius: 3px;
+                    }
+                    /* Remove zebra striping from built-in styles */
+                    pre code {
+                        background: none;
+                        padding: 0;
                     }
                     table {
                         border-collapse: collapse;

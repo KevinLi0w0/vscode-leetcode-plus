@@ -210,6 +210,14 @@ export const en = {
     topic_multi_dp: "Multi-Dimensional DP",
     topic_techniques: "Techniques",
 
+    // SQL 50 topics
+    topic_sql_basic: "Basic Queries",
+    topic_sql_sort_group: "Sort & Group By",
+    topic_sql_join: "Table Joins",
+    topic_sql_advanced: "Advanced & Subqueries",
+    topic_sql_window: "Window Functions",
+    topic_sql_misc: "Miscellaneous",
+
     // Flashcard
     flashcard_tab_description: "Description",
     flashcard_tab_card: "Flashcard",

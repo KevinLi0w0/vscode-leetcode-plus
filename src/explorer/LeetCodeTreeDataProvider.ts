@@ -99,12 +99,10 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             return explorerNodeManager.getStudyPlanTopicProblemNodes(planSlug, topicIndex);
         } else if (element.id.startsWith("studyplan:")) {
             const planSlug: string = element.id.substring("studyplan:".length);
-            // Hot 100 shows topic grouping; other plans show flat list
-            if (planSlug === "top-100-liked") {
-                const topicNodes = explorerNodeManager.getStudyPlanTopicNodes(planSlug);
-                if (topicNodes.length > 0) {
-                    return topicNodes;
-                }
+            // Plans with topic groupings show topics; others show flat list
+            const topicNodes = explorerNodeManager.getStudyPlanTopicNodes(planSlug);
+            if (topicNodes.length > 0) {
+                return topicNodes;
             }
             return explorerNodeManager.getStudyPlanProblemNodes(planSlug);
         } else {

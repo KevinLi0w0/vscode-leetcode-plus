@@ -210,6 +210,14 @@ export const zhCN = {
     topic_multi_dp: "多维动态规划",
     topic_techniques: "技巧",
 
+    // SQL 50 topics
+    topic_sql_basic: "基本查询",
+    topic_sql_sort_group: "排序与分组",
+    topic_sql_join: "多表连接",
+    topic_sql_advanced: "高级查询与子查询",
+    topic_sql_window: "窗口函数",
+    topic_sql_misc: "综合应用",
+
     // Flashcard
     flashcard_tab_description: "题目描述",
     flashcard_tab_card: "默写卡",

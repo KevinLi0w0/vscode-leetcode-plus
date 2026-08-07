@@ -136,6 +136,22 @@ export const HOT100_TOPICS: IStudyPlanTopic[] = [
     { name: "技巧", i18nKey: "topic_techniques", problemIds: ["136", "169", "75", "31", "287"] },
 ];
 
+// SQL 50 topic groupings (matches leetcode.cn/studyplan/sql-free-50/)
+export const SQL50_TOPICS: IStudyPlanTopic[] = [
+    { name: "基本查询", i18nKey: "topic_sql_basic", problemIds: ["1757", "584", "595", "1148", "1683"] },
+    { name: "排序与分组", i18nKey: "topic_sql_sort_group", problemIds: ["1378", "1068", "1581", "197", "1661", "577", "1280"] },
+    { name: "多表连接", i18nKey: "topic_sql_join", problemIds: ["570", "1934", "620", "1251", "1075", "1633", "1211", "1193", "1174"] },
+    { name: "高级查询与子查询", i18nKey: "topic_sql_advanced", problemIds: ["550", "2356", "1141", "1084", "596", "1729", "619", "1045", "1731"] },
+    { name: "窗口函数", i18nKey: "topic_sql_window", problemIds: ["1789", "610", "180", "1164", "1204", "1907"] },
+    { name: "综合应用", i18nKey: "topic_sql_misc", problemIds: ["1978", "626", "1341", "1321", "602", "585", "185", "1667", "1527", "196", "176", "1484", "1327", "1517"] },
+];
+
+// Map study plan slug to its topic array
+export const STUDY_PLAN_TOPICS: { [slug: string]: IStudyPlanTopic[] } = {
+    "top-100-liked": HOT100_TOPICS,
+    "sql-free-50": SQL50_TOPICS,
+};
+
 export const supportedPlugins: string[] = ["company", "solution.discuss", "leetcode.cn"];
 
 export enum DescriptionConfiguration {
